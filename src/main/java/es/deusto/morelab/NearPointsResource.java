@@ -7,6 +7,8 @@ import com.google.maps.model.DistanceMatrixRow;
 import com.google.maps.model.LatLng;
 import com.google.maps.model.TravelMode;
 import com.google.maps.model.Unit;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 import java.util.Collections;
 import javax.ws.rs.Consumes;
@@ -15,6 +17,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+@Api(value="/Near Points Finder")
 @Path("nearpoints")
 public class NearPointsResource
 {
@@ -40,10 +43,12 @@ public class NearPointsResource
     @Produces({"text/plain"})
     @Path("test")
     public String getIt() { return "Got it!"; }
+
     @POST
     @Path("/sort-distances")
     @Consumes({"application/json"})
     @Produces({"application/json"})
+    @ApiOperation(value="Sort points by walking distance")
     public SortedPoints sortPointsByDistance(PointsToSort json) {
         try { DistanceMatrixApiRequest distanceApiRequest = new DistanceMatrixApiRequest(this.context);
 
